@@ -16,8 +16,9 @@
 
 .trivia-filters {
     display: flex;
-    gap: 15px;
-    padding: 15px 20px;
+    gap: 12px;
+    padding: 12px;
+    margin-bottom: 0;
     flex-wrap: wrap;
 }
 
@@ -52,6 +53,8 @@
 .trivia-content-wrapper {
     display: flex;
     flex: 1;
+    gap: 12px;
+    padding: 0 12px 12px 12px;
     overflow: hidden;
     min-height: 0;
 }
@@ -59,7 +62,6 @@
 .trivia-map-container {
     flex: 1;
     position: relative;
-    padding: 15px;
 }
 
 #triviaFinderMap {
@@ -104,7 +106,6 @@
     display: flex;
     flex-direction: column;
     min-height: 0;
-    padding: 15px;
 }
 
 .trivia-venue-list {
@@ -225,7 +226,7 @@
     font-size: 16px;
 }
 
-/* Custom info window styling - No border, auto-fit width */
+/* Custom info window styling */
 .gm-style .gm-style-iw {
     padding: 0 !important;
 }
@@ -286,10 +287,11 @@
 .trivia-custom-close-button {
     position: absolute;
     top: 50%;
-    right: 12px;
+    right: 8px;
     transform: translateY(-50%);
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
+    margin: 3px;
     background: rgba(255, 255, 255, 0.2);
     border: none;
     border-radius: 50%;
@@ -299,7 +301,7 @@
     justify-content: center;
     transition: all 0.2s ease;
     color: white;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
     line-height: 1;
     padding: 0;
@@ -307,7 +309,7 @@
 
 .trivia-custom-close-button:hover {
     background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-50%) scale(1.1);
+    transform: translateY(-50%) scale(1.15);
 }
 
 .trivia-custom-info-body {
@@ -363,33 +365,35 @@
     }
 
     .trivia-filters {
-        padding: 12px 15px;
-        gap: 10px;
+        padding: 12px;
+        gap: 12px;
+        margin-bottom: 0;
     }
 
     .trivia-filter-group {
-        min-width: calc(50% - 5px);
+        min-width: calc(50% - 6px);
     }
 
     .trivia-content-wrapper {
         flex-direction: column;
+        padding: 0 12px 12px 12px;
+        gap: 12px;
     }
 
     .trivia-map-container {
         flex: 1;
         min-height: 0;
-        padding: 10px;
     }
 
     .trivia-list-container {
         flex: 1;
         min-height: 0;
         border-left: none;
-        border-top: 1px solid #E2E8F0;
+        border-top: none;
     }
 
     .trivia-venue-list {
-        padding: 12px;
+        padding: 0;
     }
 
     .trivia-venue-header {
@@ -434,9 +438,5 @@
 
     .trivia-venue-detail-icon {
         margin-right: 8px;
-    }
-
-    .trivia-map-container {
-        padding: 8px;
     }
 }
