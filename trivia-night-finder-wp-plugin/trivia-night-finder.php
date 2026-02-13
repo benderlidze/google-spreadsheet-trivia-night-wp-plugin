@@ -3,7 +3,7 @@
  * Plugin Name: Trivia Night Finder
  * Plugin URI: https://yoursite.com/trivia-night-finder
  * Description: Find trivia nights with an interactive map and filterable list
- * Version: 1.3.0
+ * Version: 1.4.0
  * Author: Your Name
  * Author URI: https://yoursite.com
  * License: GPL v2 or later
@@ -173,12 +173,18 @@ class Trivia_Night_Finder {
             <hr>
             
             <h2>Changelog</h2>
+            <h3>Version 1.4.0</h3>
+            <ul>
+                <li>Changed map/list ratio to 70/30 for better map visibility</li>
+                <li>Added proper day ordering (Monday-Sunday)</li>
+                <li>Reduced font sizes for cleaner info windows</li>
+                <li>Improved mobile filter layout (side-by-side)</li>
+            </ul>
             <h3>Version 1.3.0</h3>
             <ul>
                 <li>Consistent 12px padding across desktop and mobile</li>
                 <li>Smaller, more refined close button in info windows</li>
                 <li>Improved spacing and layout consistency</li>
-                <li>Removed info window border for cleaner look</li>
             </ul>
         </div>
         <?php
@@ -193,7 +199,7 @@ class Trivia_Night_Finder {
                 'trivia-finder-css',
                 plugin_dir_url(__FILE__) . 'assets/css/trivia-finder.css',
                 array(),
-                '1.3.0'
+                '1.4.0'
             );
             
             // Enqueue D3.js
@@ -210,7 +216,7 @@ class Trivia_Night_Finder {
                 'trivia-finder-js',
                 plugin_dir_url(__FILE__) . 'assets/js/trivia-finder.js',
                 array('d3js'),
-                '1.3.0',
+                '1.4.0',
                 true
             );
             

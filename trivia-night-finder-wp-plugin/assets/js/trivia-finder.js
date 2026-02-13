@@ -1,10 +1,10 @@
-(function() {
+(function () {
     let allVenues = [];
     let filteredVenues = [];
     let markers = [];
     let map, infoWindow;
 
-    window.triviaFinderInitMap = function() {
+    window.triviaFinderInitMap = function () {
         map = new google.maps.Map(document.getElementById('triviaFinderMap'), {
             center: { lat: -37.8136, lng: 144.9631 },
             zoom: 12,
@@ -55,14 +55,28 @@
     function populateFilters() {
         const days = [...new Set(allVenues.map(v => v.day))].filter(Boolean).sort();
 
+        // Custom day ordering
+        const daysOrder = {
+            'monday': 0,
+            'tuesday': 1,
+            'wednesday': 2,
+            'thursday': 3,
+            'friday': 4,
+            'saturday': 5,
+            'sunday': 6
+        };
+
         const dayFilter = document.getElementById('triviaFinderDayFilter');
         dayFilter.innerHTML = '<option value="All">All Days</option>';
-        days.forEach(day => {
-            const option = document.createElement('option');
-            option.value = day;
-            option.textContent = day;
-            dayFilter.appendChild(option);
-        });
+
+        days
+            .sort((a, b) => daysOrder[a.toLowerCase()] - daysOrder[b.toLowerCase()])
+            .forEach(day => {
+                const option = document.createElement('option');
+                option.value = day;
+                option.textContent = day;
+                dayFilter.appendChild(option);
+            });
 
         updateLocationFilter();
     }
@@ -129,7 +143,7 @@
         return `
             <div class="trivia-custom-info-window">
                 <div class="trivia-custom-info-header">
-                    <h3 class="trivia-custom-info-title">${v.name} – ${v.location}</h3>
+                    <h3 class="trivia-custom-info-title">${v.name}</h3>
                     <button class="trivia-custom-close-button" onclick="triviaFinderCloseInfoWindow()" aria-label="Close">×</button>
                 </div>
                 <div class="trivia-custom-info-body">
@@ -164,7 +178,7 @@
         `;
     }
 
-    window.triviaFinderCloseInfoWindow = function() {
+    window.triviaFinderCloseInfoWindow = function () {
         if (infoWindow) {
             infoWindow.close();
         }
@@ -208,7 +222,7 @@
         list.innerHTML = filteredVenues.map(v => `
             <div class="trivia-venue-card" data-venue-id="${v.id}" onclick="triviaFinderHandleListClick(${v.id})">
                 <div class="trivia-venue-header">
-                    <div class="trivia-venue-name">${v.name} – ${v.location}</div>
+                    <div class="trivia-venue-name">${v.name}</div>
                 </div>
                 <div class="trivia-venue-body">
                     <div class="trivia-venue-detail">
@@ -244,7 +258,7 @@
         `).join('');
     }
 
-    window.triviaFinderHandleListClick = function(venueId) {
+    window.triviaFinderHandleListClick = function (venueId) {
         const venue = allVenues.find(v => v.id === venueId);
         const marker = markers.find(m => m.venueId === venueId);
 
@@ -265,17 +279,17 @@
     }
 
     // Initialize event listeners when DOM is ready
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const dayFilter = document.getElementById('triviaFinderDayFilter');
         const locationFilter = document.getElementById('triviaFinderLocationFilter');
-        
+
         if (dayFilter) {
             dayFilter.onchange = () => {
                 updateLocationFilter();
                 applyFilters();
             };
         }
-        
+
         if (locationFilter) {
             locationFilter.onchange = applyFilters;
         }
