@@ -89,7 +89,7 @@
         }
 
         .map-container {
-            flex: 1;
+            flex: 7;
             position: relative;
         }
 
@@ -136,7 +136,7 @@
         }
 
         .list-container {
-            flex: 1;
+            flex: 3;
             display: flex;
             flex-direction: column;
             min-height: 0;
@@ -311,7 +311,7 @@
 
         .custom-info-title {
             color: white;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 700;
             margin: 0;
             line-height: 1.3;
@@ -335,7 +335,7 @@
             justify-content: center;
             transition: all 0.2s ease;
             color: white;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             line-height: 1;
             padding: 0;
@@ -356,7 +356,7 @@
             display: flex;
             align-items: flex-start;
             margin-bottom: 10px;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .info-detail-row:last-child {
@@ -365,7 +365,7 @@
 
         .info-detail-icon {
             margin-right: 10px;
-            font-size: 15px;
+            font-size: 14px;
             min-width: 18px;
         }
 
@@ -650,7 +650,7 @@
             return `
                 <div class="custom-info-window">
                     <div class="custom-info-header">
-                        <h3 class="custom-info-title">${v.name} – ${v.location}</h3>
+                        <h3 class="custom-info-title">${v.name}</h3>
                         <button class="custom-close-button" onclick="closeInfoWindow()" aria-label="Close">×</button>
                     </div>
                     <div class="custom-info-body">
@@ -674,13 +674,7 @@
                                 <a href="${v.website}" target="_blank" class="info-detail-link">Visit Website</a>
                             </div>
                         ` : ''}
-                        ${v.phone ? `
-                            <div class="info-detail-row">
-                                <span class="info-detail-icon">📞</span>
-                                <span class="info-detail-text">${v.phone}</span>
-                            </div>
-                        ` : ''}
-                    </div>
+                      </div>
                 </div>
             `;
         }
@@ -727,7 +721,7 @@
             list.innerHTML = filteredVenues.map(v => `
                 <div class="venue-card" data-venue-id="${v.id}" onclick="handleListClick(${v.id})">
                     <div class="venue-header">
-                        <div class="venue-name">${v.name} – ${v.location}</div>
+                        <div class="venue-name">${v.name}</div>
                     </div>
                     <div class="venue-body">
                         <div class="venue-detail">
