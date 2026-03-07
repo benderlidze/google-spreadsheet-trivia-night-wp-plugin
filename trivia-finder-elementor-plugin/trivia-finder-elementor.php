@@ -3,7 +3,7 @@
  * Plugin Name: Trivia Night Finder - Elementor Widget
  * Description: A native Elementor widget for map-based trivia night finder
  * Version: 2.0.1
- * Author: Your Name
+ * Author: Serhii
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Elementor tested up to: 3.25.0
