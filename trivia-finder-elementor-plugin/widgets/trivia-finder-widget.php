@@ -90,6 +90,47 @@ class Trivia_Finder_Elementor_Widget extends Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section(
+            'mobile_layout_section',
+            [
+                'label' => esc_html__('Mobile Layout', 'trivia-finder-elementor'),
+                'tab'   => Controls_Manager::TAB_CONTENT,
+            ]
+        );
+
+        $this->add_responsive_control(
+            'map_container_height',
+            [
+                'label'      => esc_html__('Map Height (%)', 'trivia-finder-elementor'),
+                'type'       => Controls_Manager::SLIDER,
+                'size_units' => ['%', 'px', 'vh'],
+                'range'      => [
+                    '%' => [
+                        'min'  => 10,
+                        'max'  => 90,
+                        'step' => 1,
+                    ],
+                    'px' => [
+                        'min'  => 100,
+                        'max'  => 800,
+                        'step' => 10,
+                    ],
+                    'vh' => [
+                        'min'  => 10,
+                        'max'  => 100,
+                        'step' => 1,
+                    ],
+                ],
+                'selectors'  => [
+                    '{{WRAPPER}} .trivia-map-container' => 'height: {{SIZE}}{{UNIT}}; flex: none; min-height: 0;',
+                    '{{WRAPPER}} .trivia-list-container' => 'flex: 1; min-height: 0;',
+                ],
+                'description' => esc_html__('Set the height of the map relative to the container on mobile/tablet. If empty, the global plugin setting or default 50% will be used.', 'trivia-finder-elementor'),
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
             'filter_style_section',
             [
                 'label' => esc_html__('Filters', 'trivia-finder-elementor'),
@@ -178,6 +219,19 @@ class Trivia_Finder_Elementor_Widget extends Widget_Base {
         $csv_url         = !empty($settings['csv_url']['url']) ? $settings['csv_url']['url'] : $default_csv_url;
         $wrapper_id      = 'trivia-finder-' . esc_attr($this->get_id());
         $is_editor       = \Elementor\Plugin::$instance->editor->is_edit_mode();
+        
+        // Handle global default for mobile map height if widget control is empty
+        $global_mobile_height = get_option('trivia_finder_default_mobile_map_height', 50);
+        $has_custom_mobile_height = !empty($settings['map_container_height_mobile']['size']) || !empty($settings['map_container_height_tablet']['size']);
+
+        if (!$has_custom_mobile_height && !empty($global_mobile_height)) {
+            echo '<style>
+                @media (max-width: 767px) {
+                    #' . esc_attr($wrapper_id) . ' .trivia-map-container { height: ' . esc_attr($global_mobile_height) . '% !important; flex: none !important; min-height: 0 !important; }
+                    #' . esc_attr($wrapper_id) . ' .trivia-list-container { flex: 1 !important; min-height: 0 !important; }
+                }
+            </style>';
+        }
 
         if (empty($google_api_key) && $is_editor) {
             echo '<div class="elementor-alert elementor-alert-warning">';
@@ -221,6 +275,7 @@ class Trivia_Finder_Elementor_Widget extends Widget_Base {
                     </div>
 
                     <div class="trivia-list-container">
+                        <h2 class="trivia-venues-title"><?php esc_html_e('List of Venues', 'trivia-finder-elementor'); ?></h2>
                         <div class="triviaFinderVenueList trivia-venue-list"></div>
                     </div>
                 </div>

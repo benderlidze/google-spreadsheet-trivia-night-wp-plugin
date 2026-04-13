@@ -200,6 +200,16 @@ final class Trivia_Finder_Elementor_Plugin {
             ]
         );
 
+        register_setting(
+            'trivia_finder_settings_group',
+            'trivia_finder_default_mobile_map_height',
+            [
+                'type'              => 'integer',
+                'sanitize_callback' => 'absint',
+                'default'           => 50,
+            ]
+        );
+
         add_settings_section(
             'trivia_finder_main_section',
             esc_html__('General Settings', 'trivia-finder-elementor'),
@@ -243,6 +253,14 @@ final class Trivia_Finder_Elementor_Plugin {
             'trivia_finder_default_zoom',
             esc_html__('Default Zoom', 'trivia-finder-elementor'),
             [$this, 'default_zoom_callback'],
+            'trivia-finder-elementor-settings',
+            'trivia_finder_main_section'
+        );
+
+        add_settings_field(
+            'trivia_finder_default_mobile_map_height',
+            esc_html__('Default Mobile Map Height (%)', 'trivia-finder-elementor'),
+            [$this, 'default_mobile_map_height_callback'],
             'trivia-finder-elementor-settings',
             'trivia_finder_main_section'
         );
@@ -333,6 +351,22 @@ final class Trivia_Finder_Elementor_Plugin {
             name="trivia_finder_default_zoom"
             value="<?php echo esc_attr($value); ?>"
         />
+        <?php
+    }
+
+    public function default_mobile_map_height_callback() {
+        $value = get_option('trivia_finder_default_mobile_map_height', 50);
+        ?>
+        <input
+            type="number"
+            min="10"
+            max="90"
+            name="trivia_finder_default_mobile_map_height"
+            value="<?php echo esc_attr($value); ?>"
+        />
+        <p class="description">
+            <?php esc_html_e('The percentage of container height the map should take on mobile devices (e.g. 50).', 'trivia-finder-elementor'); ?>
+        </p>
         <?php
     }
 
