@@ -227,7 +227,8 @@ class Trivia_Finder_Elementor_Widget extends Widget_Base {
         if (!$has_custom_mobile_height && !empty($global_mobile_height)) {
             echo '<style>
                 @media (max-width: 767px) {
-                    #' . esc_attr($wrapper_id) . ' .trivia-map-container { height: ' . esc_attr($global_mobile_height) . '% !important; flex: none !important; min-height: 0 !important; }
+                    #' . esc_attr($wrapper_id) . ' .trivia-map-container { height: ' . esc_attr($global_mobile_height) . '% !important; flex: none !important; min-height: 0 !important; overflow: hidden !important; }
+                    #' . esc_attr($wrapper_id) . ' .trivia-map-container .triviaFinderMap { height: 100% !important; min-height: 0 !important; }
                     #' . esc_attr($wrapper_id) . ' .trivia-list-container { flex: 1 !important; min-height: 0 !important; }
                 }
             </style>';
